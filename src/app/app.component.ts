@@ -26,16 +26,24 @@ export class AppComponent {
   row = 0;
   col = 0;
   speed = 0;
+  calculateRowsAndColumns() {
+    // Get the dimensions of the screen or container
+    const screenWidth = window.innerWidth; // Or specify the width of the container
+    const screenHeight = window.innerHeight; // Or specify the height of the container
+    
+    // Get the dimensions of each square box
+    const boxWidth = 25; // Example width of each square box in pixels
+    const boxHeight = 25; // Example height of each square box in pixels
+    
+    // Calculate the number of rows and columns
+    const numColumns = Math.floor(screenWidth / boxWidth);
+    const numRows = Math.floor(screenHeight / boxHeight);
+    
+  return [ numRows, numColumns ];
+}
   ngOnInit() {
-    if (window.matchMedia("(max-width: 480px)").matches) {
-      this.row = 14;
-      this.col = 14;
-      this.speed = 30;
-    } else {
-      this.row = 25;
-      this.col = 60;
-      this.speed = 20;
-    }
+    [this.row, this.col] = this.calculateRowsAndColumns();
+    this.speed = 30;
     this.render()
     Swal.fire({
       title: "We can't pass through wall.\nWe require more time through water(It costs us 15 points).\nWe can go up,right,down,left only.\nDFS and BFS are unweighted path finding Algo. i.e Water doesn't matter to this Algo.\nEnjoy Searching😃",
